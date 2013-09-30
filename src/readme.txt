@@ -1,6 +1,9 @@
 ==== 设置 ====
 只需一步，立即启动您的个人收藏。
-打开config.txt,修改HOST和PORT为您期望绑定的IP地址和端口。
+打开config.txt
+1. 修改HOST和PORT为您期望绑定的IP地址和端口。
+2. 修改DOMAIN,为您期望从浏览器访问的地址.
+   如果不作urlrewrite,则这个DOMAIN必须为http://HOST:PORT(PORT为80不用写)
 ==== 编译 ====
 只有Windows环境需要编译,Linux环境无需编译。
 1. 下载Python 2.7.5,并安装

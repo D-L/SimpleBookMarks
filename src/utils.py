@@ -1,7 +1,7 @@
 #coding: utf8
 
 from bottle import response,request
-import gzip,hashlib,os.path,urlparse,datetime,time
+import gzip,hashlib,os.path,urlparse,datetime,time,threading
 
 from database import DB
 from copycat import CopyCat
@@ -20,6 +20,21 @@ def utf8(unimsg):
 
 def now():
 	return int(time.time()*1000)
+
+CFG=threading.local()
+def getcfg():
+	CFG.host=''
+	CFG.domain=''
+	CFG.port=0
+	for line in open("config.txt","rb"):
+		content = line.strip().lower()
+		if content.find('host=') >=0:
+			CFG.host=content.replace('host=','').strip()
+		elif content.find('port=') >=0:
+			CFG.port =int(content.replace('port=','').strip())
+		elif content.find('domain=') >=0:
+			CFG.domain=content.replace('domain=','').strip()
+getcfg() #run this config
 
 def wait(timeout):
 	import select

@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 #coding: utf8
-from bottle import get,run,redirect,template,error,request,static_file,TornadoServer
-from utils import wrapdb,compressit
+from bottle import get,run,redirect,template,error,static_file,TornadoServer
+from utils import wrapdb,compressit,CFG
 from checker import runchecker
 import os.path
 
@@ -49,21 +49,11 @@ def homepage(db):
 
 @get("/tools/")
 def tools():
-	httpdomain = 'http://'+request.urlparts.netloc
-	return compressit(template("tools",httpdomain=httpdomain))
+	return compressit(template("tools",httpdomain=CFG.domain))
 
 def runweb():
 	#从外界获取配置
-	host=''
-	port=0
-	for line in open("config.txt","rb"):
-		content = line.strip().lower()
-		if content.find('host=') >=0:
-			host=content.replace('host=','').strip()
-		elif content.find('port=') >=0:
-			port =int(content.replace('port=','').strip())
-
-	run(host=host,port=port,server=TornadoServer)
+	run(host=CFG.host,port=CFG.port,server=TornadoServer)
 
 if __name__=="__main__":
 	checker = runchecker()
