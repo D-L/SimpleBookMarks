@@ -1,10 +1,11 @@
 #coding: utf8
 
 from bottle import get,post,template,request
-from utils import wrapdb,ulen
+from utils import wrapdb,ulen,login
 from dbutils import getCategory
 
 @post("/0.1/delcat/")
+@login
 @wrapdb
 def apidelcat(db):
 	"""
@@ -31,6 +32,7 @@ def apidelcat(db):
 	return {'ok':1}
 
 @post("/0.1/newcat/")
+@login
 @wrapdb
 def apinewcat(db):
 	"""
@@ -56,6 +58,7 @@ def apinewcat(db):
 	return {'content' : [ (cid,t) for cid,t in ret]}
 
 @get("/newcategory/")
+@login
 def newcategory():
 	"""
 		JS插件的新建链接.

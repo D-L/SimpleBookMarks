@@ -5,10 +5,11 @@
 import urllib,re
 
 from bottle import post,get,request,template
-from utils import wrapdb,compressit,refineTag
+from utils import wrapdb,compressit,refineTag,login
 from dbutils import getUrls,getCategory
 
 @post("/0.1/heart/")
+@login
 @wrapdb
 def apiheart(db):
 	"""
@@ -36,6 +37,7 @@ def apiheart(db):
 	return {'ok':1}
 
 @get("/myheart/")
+@login
 @wrapdb
 def myheart(db):
 	"""

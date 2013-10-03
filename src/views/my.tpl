@@ -7,7 +7,6 @@
 		<link rel="stylesheet" href="/css/font-awesome.min.css">
 		<script type="text/javascript" charset="utf-8" src="/js/jquery.js"></script>
         <script type="text/javascript" charset="utf-8" src="/js/bootstrap.min.js"></script>
-		<script type="text/javascript" charset="utf-8" src="/js/notify.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/js/comm.min.js"></script>
 		<style>
 			span.uc{cursor:pointer;}
@@ -40,6 +39,7 @@
 						<li><a href="/export/" target="_blank">导出收藏为HTML文件</a></li>
 						<li class="divider"></li>
 						<li><a href="/info/">设置</a></li>
+						<li><a href="/signout/">登出</a></li>
 					</ul>
 				</li>
 			</ul>

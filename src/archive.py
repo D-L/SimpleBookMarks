@@ -4,7 +4,7 @@
 """
 import os.path
 from bottle import post,get,request,abort,response,redirect
-from utils import wrapdb,compressit
+from utils import wrapdb,compressit,login
 
 from config import ARCHIVED_DIR
 
@@ -48,6 +48,7 @@ def archiveapiok(db):
 	return True
 
 @get("/disablecopycat/")
+@login
 @wrapdb
 def disablecopycat(db):
 	db.execute('UPDATE SERVICES SET ENABLED=0,MSG=%s WHERE SERVICE_ID=1',"手工关闭")
@@ -55,6 +56,7 @@ def disablecopycat(db):
 	redirect("/info/")
 
 @get("/enablecopycat/")
+@login
 @wrapdb
 def enablecopycat(db):
 	db.execute('UPDATE SERVICES SET ENABLED=1,MSG=%s WHERE SERVICE_ID=1',"手工激活")
@@ -62,6 +64,7 @@ def enablecopycat(db):
 	redirect("/info/")
 
 @post("/0.1/snapshot/")
+@login
 @wrapdb
 def snapshot(db):
 	bid = request.POST.get('bookmarkid','')
@@ -82,6 +85,7 @@ def snapshot(db):
 	return {'ok': 1}
 
 @get("/vss/:bid#[0-9a-zA-Z]+#/<name:re:.*>")
+@login
 def vss(bid,name):
 	"""
 		显示某个收藏的快照

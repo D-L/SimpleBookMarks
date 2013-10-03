@@ -1,7 +1,7 @@
 #coding: utf8
 
 from bottle import get,post,redirect,response,request,template
-from utils import wrapdb,compressit,html_escape,refineTag,ulen,ulenget,nt,getshorturlid
+from utils import wrapdb,compressit,html_escape,refineTag,ulen,ulenget,nt,getshorturlid,login
 from dbutils import createnewcat
 import re,StringIO
 
@@ -129,6 +129,7 @@ def exportBookmark(bookmarks):
 	return '\n'.join(htmlcode)
 
 @get("/export/")
+@login
 @wrapdb
 def export(db):
 	"""
@@ -164,6 +165,7 @@ def export(db):
 	return compressit(htmlcode)
 
 @post("/import/")
+@login
 @wrapdb
 def importbookmark(db):
 	"""

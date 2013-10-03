@@ -1,9 +1,10 @@
 #coding: utf8
 
 from bottle import get,post,request,redirect,template
-from utils import wrapdb
+from utils import wrapdb,login
 
 @get("/info/")
+@login
 @wrapdb
 def info(db):
 	enabled = False
@@ -22,20 +23,22 @@ def info(db):
 		appinfo = (int(appid),key,url)
 	return template('info',appinfo=appinfo,enabled=enabled,msg=msg)
 
-@post("/setcopycat/")
+@post("/0.1/copycat/")
+@login
 @wrapdb
 def setcopycat(db):
 	appid = request.POST.get('appid','').strip()
 	key = request.POST.get('key','').strip()
 	root = request.POST.get('rooturl','').strip()
 	if not appid or not key or not root:
-		return template('error',msg='设置参数不能为空啊')
+		return {'error':'设置参数不能为空啊'}
 
 	try:
 		appid = int(appid)
 	except:
-		return template('error',msg='APPID 应该是个数字吧？')
+		return {'error':'APPID 应该是个数字吧？'}
+
 	db.execute('UPDATE API SET VALID=0')
 	db.execute('INSERT INTO API(APP_ID,SECURITY_KEY,ROOT_URL,VALID) VALUES(%s,%s,%s,1)',(appid,key,root))
 	db.commit()
-	redirect('/info/',302)
+	return {'ok':'服务设置已更新'}

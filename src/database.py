@@ -121,7 +121,34 @@ def initDB():
 	"""
 	db.execute('CREATE TABLE VERSION(CUR INTEGER,LATEST INTEGER,CHECKTIME INTEGER,MSG TEXT)')
 	db.execute('INSERT INTO VERSION(CUR,LATEST,CHECKTIME,MSG) VALUES(1,1,0,"")')
+	"""
+	USER:
+		PASSWD     : text 密码
+	"""
+	db.execute('CREATE TABLE USER(PASSWD TEXT PRIMARY KEY)')
+	db.execute('INSERT INTO USER(PASSWD) VALUES("12345678")')
+	"""
+	COOKIE:
+		TOKEN : text 登陆的有效token
+	"""
+	db.execute('CREATE TABLE COOKIE(TOKEN TEXT PRIMARY KEY)')
+
 	db.close()
+
+def updatedb(db):
+	"""
+		更新DataBase
+	"""
+	#--与初始版本的升级--
+	db.execute('CREATE TABLE IF NOT EXISTS USER(PASSWD TEXT PRIMARY KEY)')
+	db.execute('SELECT COUNT(0) FROM USER')
+	v, = db.getone()
+	if v > 0: #已经更新好了的
+		return
+
+	db.execute('DELETE FROM USER')
+	db.execute('INSERT INTO USER(PASSWD) VALUES("12345678")')
+	db.execute('CREATE TABLE IF NOT EXISTS COOKIE(TOKEN TEXT PRIMARY KEY)')
 
 if __name__=="__main__":
 	initDB()

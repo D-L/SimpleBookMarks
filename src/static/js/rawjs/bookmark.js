@@ -308,3 +308,53 @@ function addbookmark_i(jform,successcb,errorcb){
 		'timeout' : 10000
 	});
 }
+//------更新密码-------
+function updatepassword(){
+	function error(_,_,data){
+		$.notify(''+data,{position:"top center",className:"error"});
+	}
+	function success(msg){
+		if (msg.noauth) return home();
+		if (msg.error) {
+			$.notify(msg.error,{position:"top center",className:"error"});
+		}
+		if (msg.ok){
+			$.notify(msg.ok,{position:"top center",className:"success"});
+		}
+	}
+	$.ajax({ 
+		'url' : '/0.1/password/',
+		'type' : 'POST',
+		'data' :  $("#passwordform").serialize(),
+		'dataType' : 'json',
+		'success' : success,
+		'error' : error,
+		'timeout' : 10000
+	});
+	return false;
+}
+//------更新Copycat-------
+function updatecopycat(){
+	function error(_,_,data){
+		$.notify(''+data,{position:"top center",className:"error"});
+	}
+	function success(msg){
+		if (msg.noauth) return home();
+		if (msg.error) {
+			$.notify(msg.error,{position:"top center",className:"error"});
+		}
+		if (msg.ok){
+			$.notify(msg.ok,{position:"top center",className:"success"});
+		}
+	}
+	$.ajax({ 
+		'url' : '/0.1/copycat/',
+		'type' : 'POST',
+		'data' :  $("#copycatform").serialize(),
+		'dataType' : 'json',
+		'success' : success,
+		'error' : error,
+		'timeout' : 10000
+	});
+	return false;
+}

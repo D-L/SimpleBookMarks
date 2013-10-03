@@ -1,6 +1,6 @@
 #coding: utf8
 
-from bottle import response,request
+from bottle import response,request,redirect
 import gzip,hashlib,os.path,urlparse,datetime,time,threading
 
 from database import DB
@@ -135,6 +135,26 @@ def wrapdb(func):
 		finally:
 			db.commit()
 	return func_i
+
+def islogined():
+	session_value = request.get_cookie('token','')
+	if not session_value:
+		return False
+	db.execute('SELECT TOKEN FROM COOKIE')
+	for token, in db.getall():
+		if token == session_value:
+			return True
+	return False
+
+def login(func):
+	"""
+		需要登陆的
+	"""
+	def login_i(*args,**kws):
+		if islogined():
+			return func(*args,**kws)
+		redirect("/login.html") #返回登陆页面
+	return login_i
 
 if __name__=="__main__":
 	pass

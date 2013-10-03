@@ -1,7 +1,8 @@
 #!/usr/bin/env python2
 #coding: utf8
 from bottle import get,run,redirect,template,error,static_file,TornadoServer
-from utils import wrapdb,compressit,CFG
+from database import updatedb
+from utils import wrapdb,compressit,CFG,login
 from checker import runchecker
 import os.path
 
@@ -12,6 +13,7 @@ import tie
 import category
 import archive
 import urls
+import user
 
 from config import STATIC_DIR
 
@@ -38,6 +40,7 @@ def favicon():
 	return static_file("favicon.ico",root=STATIC_DIR)
 
 @get("/")
+@login
 @wrapdb
 def homepage(db):
 	db.execute('SELECT COUNT(0) FROM URLS')
@@ -48,8 +51,15 @@ def homepage(db):
 		return compressit(template("welcome"))
 
 @get("/tools/")
+@login
 def tools():
 	return compressit(template("tools",httpdomain=CFG.domain))
+
+@get("/sysupdate/")
+@wrapdb
+def sysupdate(db):
+	updatedb(db)
+	return "升级成功!"
 
 def runweb():
 	#从外界获取配置

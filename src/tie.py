@@ -3,7 +3,7 @@ import os.path
 import urlparse,urllib2
 
 from bottle import get,post,request,response,template
-from utils import wrapdb,compressit,ulen,ulenget,isdeny,refineTag,html_escape,getshorturlid,normaliseurl,utf8,nt,getCC,CFG
+from utils import wrapdb,compressit,ulen,ulenget,isdeny,refineTag,html_escape,getshorturlid,normaliseurl,utf8,nt,getCC,CFG,login
 from dbutils import getCategory,getdefaultcatid
 from archive import needarchive,archiveapiok
 
@@ -12,6 +12,7 @@ png_1x1 = open(os.path.join(VIEWS_DIR,'1x1.png')).read()
 png_10x1 = open(os.path.join(VIEWS_DIR,'10x1.png')).read()
 
 @get("/njs/")
+@login
 @wrapdb
 def njs(db):
 	"""
@@ -46,6 +47,7 @@ def njs(db):
 	return compressit(ret)
 
 @get("/jstie/")
+@login
 @wrapdb
 def jstie(db):
 	"""

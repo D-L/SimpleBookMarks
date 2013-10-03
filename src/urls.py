@@ -1,7 +1,7 @@
 #coding: utf8
 import urllib
 from bottle import get,post,request,template,redirect
-from utils import wrapdb,ulen,compressit,refineTag,utf8
+from utils import wrapdb,ulen,compressit,refineTag,utf8,login
 from dbutils import getUrls,getCategory,versionupdated
 from collections import defaultdict
 from archive import needarchive
@@ -9,6 +9,7 @@ from archive import needarchive
 RECORD_PER_PAGE = 60
 
 @get("/my/")
+@login
 @wrapdb
 def my(db):
 	def getparams():
@@ -122,6 +123,7 @@ def my(db):
 	return compressit(ret)
 
 @post("/0.1/update/")
+@login
 @wrapdb
 def update(db):
 	bid = int(request.POST.get('bookmarkid',''))
@@ -156,6 +158,7 @@ def update(db):
 	return {'ok':1}
 
 @post("/0.1/delete/")
+@login
 @wrapdb
 def deletebookmark(db):
 	"""
@@ -179,6 +182,7 @@ def deletebookmark(db):
 	return {'ok':1}
 
 @post("/0.1/move/")
+@login
 @wrapdb
 def movebookmark(db):	
 	bid = request.POST.get('bookmarkid','')
@@ -199,6 +203,7 @@ def movebookmark(db):
 	return {'ok':1}
 
 @post("/0.1/get/")
+@login
 @wrapdb
 def apigetbookmark(db):
 	"""
