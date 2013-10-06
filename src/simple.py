@@ -58,7 +58,10 @@ def tools():
 @get("/sysupdate/")
 @wrapdb
 def sysupdate(db):
-	updatedb(db)
+	try:
+		updatedb(db)
+	except Exception,msg:
+		return template("error",msg="%s" % msg)
 	return "升级成功!"
 
 def runweb():

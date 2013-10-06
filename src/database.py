@@ -144,7 +144,7 @@ def updatedb(db):
 	db.execute('SELECT COUNT(0) FROM USER')
 	v, = db.getone()
 	if v > 0: #已经更新好了的
-		return
+		raise Exception("您已经更新过了")
 
 	db.execute('DELETE FROM USER')
 	db.execute('INSERT INTO USER(PASSWD) VALUES("12345678")')

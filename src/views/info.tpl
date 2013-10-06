@@ -18,7 +18,7 @@
 				    <ul class="dropdown-menu">
 						<li><a href="/my/">我的收藏</a></li>
 						<li><a href="/tools/">收藏工具</a></li>
-						<li><a href="/signout/">登出</a></li>
+						<li><a href="/signout/">退出</a></li>
 					</ul>
 				</li>
 			</ul>

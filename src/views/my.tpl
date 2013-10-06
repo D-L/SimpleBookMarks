@@ -39,7 +39,7 @@
 						<li><a href="/export/" target="_blank">导出收藏为HTML文件</a></li>
 						<li class="divider"></li>
 						<li><a href="/info/">设置</a></li>
-						<li><a href="/signout/">登出</a></li>
+						<li><a href="/signout/">退出</a></li>
 					</ul>
 				</li>
 			</ul>
