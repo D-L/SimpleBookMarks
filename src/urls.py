@@ -1,7 +1,7 @@
 #coding: utf8
 import urllib
 from bottle import get,post,request,template,redirect
-from utils import wrapdb,ulen,compressit,refineTag,utf8,login
+from utils import wrapdb,ulen,refineTag,utf8,login
 from dbutils import getUrls,getCategory,versionupdated
 from collections import defaultdict
 from archive import needarchive
@@ -120,7 +120,7 @@ def my(db):
 		updatemsg=updatemsg,
 		disabled = not needarchive(db),
 		tags=','.join(list(alltags)))
-	return compressit(ret)
+	return ret
 
 @post("/0.1/update/")
 @login

@@ -106,23 +106,6 @@ def ulen(utf8str):
 def ulenget(utf8str,size):
 	return utf8str.decode('utf8','ignore')[:size].encode('utf8')
 
-def compressit(content):
-	def gzipit(content):
-		response.headers['Content-Encoding'] = 'gzip'
-		stream = StringIO.StringIO()
-		gz = gzip.GzipFile(fileobj=stream,mode="wb")
-		if isinstance(content,unicode):
-			content = content.encode('utf8')
-		gz.write(content)
-		gz.close()
-		return stream.getvalue()
-
-	r = request.headers.get('Accept-Encoding','')
-	if not r: return content
-
-	if r.find('gzip') >= 0: return gzipit(content)
-	return content
-
 db = getDB()
 def wrapdb(func):
 	def func_i(*args,**kw):

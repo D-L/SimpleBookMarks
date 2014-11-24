@@ -5,7 +5,7 @@
 import urllib,re
 
 from bottle import post,get,request,template
-from utils import wrapdb,compressit,refineTag,login
+from utils import wrapdb,refineTag,login
 from dbutils import getUrls,getCategory
 
 @post("/0.1/heart/")
@@ -70,4 +70,4 @@ def myheart(db):
 
 	allcats = dict([ (cid,title) for cid,title in getCategory(db) ])
 	ret = template('myheart',allcategorys = allcats,bookmarks=data,tags=','.join(list(alltags)),count=len(data))
-	return compressit(ret)
+	return ret

@@ -4,7 +4,7 @@
 """
 import os.path
 from bottle import post,get,request,abort,response,redirect
-from utils import wrapdb,compressit,login
+from utils import wrapdb,login
 
 from config import ARCHIVED_DIR
 
@@ -100,5 +100,5 @@ def vss(bid,name):
 
 	response['Content-Type'] = v[0]
 	if v[0].find('html') >=0 or v[0].find('css') >=0:
-		return compressit(v[1])
+		return v[1]
 	return v[1]

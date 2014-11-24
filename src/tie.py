@@ -3,7 +3,7 @@ import os.path
 import urlparse,urllib2
 
 from bottle import get,post,request,response,template
-from utils import wrapdb,compressit,ulen,ulenget,isdeny,refineTag,html_escape,getshorturlid,normaliseurl,utf8,nt,getCC,CFG,login
+from utils import wrapdb,ulen,ulenget,isdeny,refineTag,html_escape,getshorturlid,normaliseurl,utf8,nt,getCC,CFG,login
 from dbutils import getCategory,getdefaultcatid
 from archive import needarchive,archiveapiok
 
@@ -44,7 +44,7 @@ def njs(db):
 	#@todo: 尝试去获取最可能的Categorys和Tags.
 	ret = template('jsp',tags="",categorys=''.join(cats),httpdomain=CFG.domain,existed=existed,lasttime=lasttime,tips=tips)
 	response['Content-Type'] = 'application/javascript'
-	return compressit(ret)
+	return ret
 
 @get("/jstie/")
 @login

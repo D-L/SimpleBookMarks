@@ -1,7 +1,7 @@
 #coding: utf8
 
 from bottle import get,post,redirect,response,request,template
-from utils import wrapdb,compressit,html_escape,refineTag,ulen,ulenget,nt,getshorturlid,login
+from utils import wrapdb,html_escape,refineTag,ulen,ulenget,nt,getshorturlid,login
 from dbutils import createnewcat
 import re,StringIO
 
@@ -162,7 +162,7 @@ def export(db):
 	htmlcode = exportBookmark(content)
 	response['Content-Type'] = 'text/html'
 	response['Content-Disposition'] = 'attachment; filename="bookmarks.html"'
-	return compressit(htmlcode)
+	return htmlcode
 
 @post("/import/")
 @login

@@ -2,7 +2,7 @@
 #coding: utf8
 from bottle import get,run,redirect,template,error,static_file,TornadoServer
 from database import updatedb
-from utils import wrapdb,compressit,CFG,login
+from utils import wrapdb,CFG,login
 from checker import runchecker
 import os.path
 
@@ -48,12 +48,12 @@ def homepage(db):
 	if int(urlcount) > 0:
 		redirect('/my/',302)
 	else:
-		return compressit(template("welcome"))
+		return template("welcome")
 
 @get("/tools/")
 @login
 def tools():
-	return compressit(template("tools",httpdomain=CFG.domain))
+	return template("tools",httpdomain=CFG.domain)
 
 @get("/sysupdate/")
 @wrapdb
