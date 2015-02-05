@@ -13,7 +13,7 @@ from token import TOKEN
 @withdb
 def submit(db):
 	recorder = Recorder(TOKEN)
-	db.execute('SELECT ID,URL FROM TASK WHERE STATUS=0 AND APPROVED=1 AND ENABLED=1')
+	db.execute('SELECT ID,URL FROM TASK WHERE STATUS=0 AND APPROVED=1')
 
 	done = []
 	for id,url in db.getall():
@@ -27,4 +27,10 @@ def submit(db):
 	db.commit()
 
 if __name__=="__main__":
-	submit()
+	import time
+	while True:
+		try:
+			submit()
+		except Exception,msg:
+			print msg
+		time.sleep(300)

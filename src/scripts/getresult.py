@@ -13,7 +13,7 @@ from recorder import Recorder
 from token import TOKEN
 
 def getone(recorder,jobid,id):
-	tmpfile = os.path.join(Config["datadir"],"%s.zip" % jobid)	
+	tmpfile = os.path.join(Config["datadir"],"%s.zip" % id)
 	if os.path.exists(tmpfile):
 		os.remove(tmpfile)
 
@@ -46,4 +46,10 @@ def submit(db):
 	db.commit()
 
 if __name__=="__main__":
-	submit()
+	import time
+	while True:
+		try:
+			submit()
+		except Exception,msg:
+			print msg
+		time.sleep(300)

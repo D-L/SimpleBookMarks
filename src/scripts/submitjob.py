@@ -10,7 +10,7 @@ from utils import urlkey,utf8
 
 @withdb
 def submit(db):
-	db.execute('SELECT ID,URL,UK,SECONDS,now()-SUBMIT_TIME FROM JOB WHERE VALID=1')
+	db.execute('SELECT ID,URL,UK,SECONDS,UNIX_TIMESTAMP()-UNIX_TIMESTAMP(SUBMIT_TIME) AS D FROM JOB WHERE VALID=1')
 
 	todo = []
 	for id,url,uk,second,diff in db.getall():
@@ -28,4 +28,10 @@ def submit(db):
 	db.commit()
 
 if __name__=="__main__":
-	submit()
+	import time
+	while True:
+		try:
+			submit()
+		except:
+			pass
+		time.sleep(60*5)

@@ -179,4 +179,4 @@ def newworld(db):
 	homepage= request.urlparts[1].split(':')[0]
 	return template("thanks",homepage=homepage)
 
-run(host="0.0.0.0",port=Config["port"], server="tornado")
+run(host="127.0.0.1",port=Config["port"], server="tornado")
