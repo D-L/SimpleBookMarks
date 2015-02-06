@@ -127,7 +127,7 @@ def oneurl(db):
 	if not data:	
 		abort(404,"NO FOUND")
 
-	return template('url',dayid=dayid,url=url,title=title,data=data)
+	return template('url',dayid=dayid,url=url,title=data[0][1],data=data)
 
 @get("/page/<taskid:re:\d+>/")
 @withdb
